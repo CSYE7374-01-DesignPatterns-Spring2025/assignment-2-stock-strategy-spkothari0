@@ -49,10 +49,9 @@ public class StockMarket {
         ibmLazy.setPricingStrategy(bullStrategy); // Apply Bull strategy
 
         System.out.println("IBM Lazy with Bull Strategy");
-        String[] bids = {"132", "134", "137", "144", "156", "159"};
-        for (int i = 0; i < bids.length; i++) {
-            stockMarket.tradeStock(ibmLazy, bids[i]);
-            System.out.printf("Bid %d : %s | Price Updated to: %.2f\n", i, bids[i], ibmLazy.getPrice());
+        for(int i = 0; i < 6; i++){
+            ibmLazy.applyPricingStrategy();
+            System.out.println(ibmLazy);
         }
         System.out.println(ibmLazy.getMetric());
         System.out.println();
@@ -64,10 +63,9 @@ public class StockMarket {
         techStockEager.setPricingStrategy(bearStrategy); // Apply Bear strategy
 
         System.out.println("Tech Stock Eager with Bear Strategy");
-        bids = new String[]{"130", "123", "120", "109", "90", "84"};
-        for (int i = 0; i < bids.length; i++) {
-            stockMarket.tradeStock(techStockEager, bids[i]);
-            System.out.printf("Bid %d : %s | Price Updated to: %.2f\n", i, bids[i], techStockEager.getPrice());
+        for (int i = 0; i < 6; i++) {
+            techStockEager.applyPricingStrategy();
+            System.out.println(techStockEager);
         }
         System.out.println(techStockEager.getMetric());
         System.out.println();
@@ -78,10 +76,9 @@ public class StockMarket {
         ibm.setPricingStrategy(bullStrategy);
 
         System.out.println("IBM Factory with Bull Strategy");
-        bids = new String[]{"132", "134", "137", "144", "156", "159"};
-        for (int i = 0; i < bids.length; i++) {
-            stockMarket.tradeStock(ibm, bids[i]);
-            System.out.printf("Bid %d : %s | Price Updated to: %.2f\n", i, bids[i], ibm.getPrice());
+        for (int i = 0; i < 6; i++) {
+            ibm.applyPricingStrategy();
+            System.out.println(ibm);
         }
         System.out.println(ibm.getMetric());
         System.out.println();
@@ -92,10 +89,9 @@ public class StockMarket {
         techStock.setPricingStrategy(bearStrategy);
 
         System.out.println("Tech Stock Factory with Bear Strategy");
-        bids = new String[]{"130", "123", "120", "109", "90", "84"};
-        for (int i = 0; i < bids.length; i++) {
-            stockMarket.tradeStock(techStock, bids[i]);
-            System.out.printf("Bid %d : %s | Price Updated to: %.2f\n", i, bids[i], techStock.getPrice());
+        for (int i = 0; i < 6; i++) {
+            techStock.applyPricingStrategy();
+            System.out.println(techStock);
         }
         System.out.println(techStock.getMetric());
         System.out.println();

@@ -20,9 +20,9 @@ public class TechStock extends StockAPI {
 
     @Override
     public String getMetric() {
-        double bidAvgValue = bidList.stream()
-                .mapToInt(Integer::intValue)
-                .average()
+        double bidAvgValue = getPreviousPrices().stream()
+                .mapToInt(Double::intValue)
+               .average()
                 .orElse(0.0);
         return String.format("The Metric for " + this.getName() + ": Average Bid for the past " + bidList.size() + " bid values is: %.2f", bidAvgValue);
     }
