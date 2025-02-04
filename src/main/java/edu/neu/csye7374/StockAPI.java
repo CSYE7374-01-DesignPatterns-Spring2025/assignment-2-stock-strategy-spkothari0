@@ -7,15 +7,16 @@ public class StockAPI implements Tradable{
     private String name;
     private double price;
     private String description;
-
-    private List<Double> previousPrices = new Stack<>();
+    private List<Double> previousPrices;
 
     protected int bidCount = 0;
+    private PricingStrategy pricingStrategy;
 
     public StockAPI(String name, double price, String description) {
         this.name = name;
         this.price = price;
         this.description = description;
+        previousPrices = new Stack<>();
     }
 
     public String getName() {
@@ -49,6 +50,19 @@ public class StockAPI implements Tradable{
 
     public void setPreviousPrices(List<Double> previousPrices) {
         this.previousPrices = previousPrices;
+    }
+
+    public void setPricingStrategy(PricingStrategy strategy) {
+        this.pricingStrategy = strategy;
+    }
+
+    public void applyPricingStrategy() {
+        if (pricingStrategy != null) {
+            this.price = pricingStrategy.calculateNewPrice(this.price);
+            this.previousPrices.add(this.price);
+        } else {
+            System.out.println("No pricing strategy set!");
+        }
     }
 
     @Override

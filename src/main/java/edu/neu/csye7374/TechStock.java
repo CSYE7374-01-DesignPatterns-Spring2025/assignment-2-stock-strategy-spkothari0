@@ -5,8 +5,8 @@ import java.util.List;
 
 public class TechStock extends StockAPI {
     List<Integer> bidList = new ArrayList<>();
-    public TechStock(String name, double price, String description) {
-        super(name, price, description);
+    public TechStock() {
+        super("Tech Stock", 130, "Tech Stock is available");
     }
 
     @Override
@@ -14,7 +14,8 @@ public class TechStock extends StockAPI {
         int bidValue= Integer.parseInt(bid);
         bidList.add(bidValue);
         setPrice(bidValue);
-        System.out.println("The price for " + this.getName() + " is now " + bidValue);
+        applyPricingStrategy(); // Applying pricing strategy when bid is set
+//        System.out.println("The price for " + this.getName() + " is now " + bidValue);
     }
 
     @Override

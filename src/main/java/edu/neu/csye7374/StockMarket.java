@@ -31,63 +31,71 @@ public class StockMarket {
 
     public void tradeStock(StockAPI stock, String bid) {
         stock.setBid(bid);
-        System.out.println("Traded: " + stock.toString());
+//        System.out.println("Traded: " + stock);
     }
 
     public static void demo(){
     	System.out.println("Demo method");
-    	
+
         StockMarket stockMarket = getInstance();
-        
+
+        // Pricing Strategies
+        PricingStrategy bullStrategy = new BullMarketStrategy();
+        PricingStrategy bearStrategy = new BearMarketStrategy();
+
+        // IBM Lazy Singleton Factory with Bull Strategy
         IBMLazySingletonFactory ibmLazySingletonFactory = IBMLazySingletonFactory.getInstance();
-
         StockAPI ibmLazy = ibmLazySingletonFactory.getObject();
+        ibmLazy.setPricingStrategy(bullStrategy); // Apply Bull strategy
 
-        System.out.println("IBM Lazy");
-     
-        String[] bids = {"132.89", "130.98", "135.00", "134.02", "136.00", "139.02"};
-        for (String bid : bids) {
-            stockMarket.tradeStock(ibmLazy, bid);
+        System.out.println("IBM Lazy with Bull Strategy");
+        String[] bids = {"132", "134", "137", "144", "156", "159"};
+        for (int i = 0; i < bids.length; i++) {
+            stockMarket.tradeStock(ibmLazy, bids[i]);
+            System.out.printf("Bid %d : %s | Price Updated to: %.2f\n", i, bids[i], ibmLazy.getPrice());
         }
         System.out.println(ibmLazy.getMetric());
         System.out.println();
-        
-        System.out.println("Tech Stock Eager");
 
-
+        // Tech Stock Eager Factory with Bear Strategy
         TechStockEagerFactory techStockEagerFactory = TechStockEagerFactory.getInstance();
-
         StockAPI techStockEager = techStockEagerFactory.getObject();
-
         techStockEager.setDescription("TechStock Eager");
-     
-        bids = new String[]{"120", "125", "135", "115", "90", "84"};
-        for (String bid : bids) {
-            stockMarket.tradeStock(techStockEager, bid);
+        techStockEager.setPricingStrategy(bearStrategy); // Apply Bear strategy
+
+        System.out.println("Tech Stock Eager with Bear Strategy");
+        bids = new String[]{"130", "123", "120", "109", "90", "84"};
+        for (int i = 0; i < bids.length; i++) {
+            stockMarket.tradeStock(techStockEager, bids[i]);
+            System.out.printf("Bid %d : %s | Price Updated to: %.2f\n", i, bids[i], techStockEager.getPrice());
         }
         System.out.println(techStockEager.getMetric());
         System.out.println();
-        
-        System.out.println("IBM factory");
 
+        // IBM Factory with Bull Strategy
         IBMFactory ibmFactory = new IBMFactory();
         StockAPI ibm = ibmFactory.getObject();
+        ibm.setPricingStrategy(bullStrategy);
 
-        bids = new String[]{"132.89", "130.98", "135.00", "134.02", "136.00", "139.02"};
-        for (String bid : bids) {
-            stockMarket.tradeStock(ibm, bid);
+        System.out.println("IBM Factory with Bull Strategy");
+        bids = new String[]{"132", "134", "137", "144", "156", "159"};
+        for (int i = 0; i < bids.length; i++) {
+            stockMarket.tradeStock(ibm, bids[i]);
+            System.out.printf("Bid %d : %s | Price Updated to: %.2f\n", i, bids[i], ibm.getPrice());
         }
         System.out.println(ibm.getMetric());
         System.out.println();
 
-        System.out.println("Tech Stock factory");
-
+        // Tech Stock Factory with Bear Strategy
         TechStockFactory techStockFactory = new TechStockFactory();
-        StockAPI techStock = ibmFactory.getObject();
+        StockAPI techStock = techStockFactory.getObject();
+        techStock.setPricingStrategy(bearStrategy);
 
-        bids = new String[]{"132", "130", "135", "134", "136", "139"};
-        for (String bid : bids) {
-            stockMarket.tradeStock(techStock, bid);
+        System.out.println("Tech Stock Factory with Bear Strategy");
+        bids = new String[]{"130", "123", "120", "109", "90", "84"};
+        for (int i = 0; i < bids.length; i++) {
+            stockMarket.tradeStock(techStock, bids[i]);
+            System.out.printf("Bid %d : %s | Price Updated to: %.2f\n", i, bids[i], techStock.getPrice());
         }
         System.out.println(techStock.getMetric());
         System.out.println();

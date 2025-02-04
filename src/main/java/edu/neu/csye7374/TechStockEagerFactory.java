@@ -10,6 +10,6 @@ public class TechStockEagerFactory implements AbstarctFactory {
 
     @Override
     public StockAPI getObject() {
-        return new TechStock("IBM", 150,"IBM Stock");
+        return new TechStock();
     }
 }
